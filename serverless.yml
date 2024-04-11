@@ -106,6 +106,7 @@ resources:
                 - Access-Control-Request-Method
                 - Origin
                 - Authorization
+                - Ocp-Apim-Subscription-Key
               ## Defining if and how the QueryString and Cookies are forwarded to the origin which in this case is S3
               QueryString: false
               Cookies:
