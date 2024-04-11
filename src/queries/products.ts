@@ -9,7 +9,13 @@ export function useAvailableProducts() {
     "available-products",
     async () => {
       const res = await axios.get<AvailableProduct[]>(
-        `${API_PATHS.bff}/product/available`
+        `${API_PATHS.product}/products`,
+        {
+          headers: {
+            "Ocp-Apim-Subscription-Key": import.meta.env
+              .VITE_APIM_SUBSCRIPTION_KEY,
+          },
+        }
       );
       return res.data;
     }
