@@ -34,15 +34,25 @@ export default function CSVFileImport({ url, title }: CSVFileImportProps) {
         params: {
           name: encodeURIComponent(file.name),
         },
+        headers: {
+          "Ocp-Apim-Subscription-Key": import.meta.env
+            .VITE_IMPORT_FILE_SUBSCRIPTION_KEY,
+        },
       });
       console.log("File to upload: ", file.name);
       console.log("Uploading to: ", response.data);
       const result = await fetch(response.data, {
         method: "PUT",
-        body: file,
+        body: new Blob([file], { type: file.type }),
+        headers: {
+          "Ocp-Apim-Subscription-Key": import.meta.env
+            .VITE_IMPORT_FILE_SUBSCRIPTION_KEY,
+          "x-ms-blob-type": "BlockBlob",
+          "Content-Type": file.type,
+        },
       });
       console.log("Result: ", result);
-      setFile("");
+      setFile(undefined);
     }
   };
   return (
